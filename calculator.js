@@ -5,7 +5,6 @@ const themeToggle = document.getElementById("theme-toggle");
 let currentInput = "";
 let resultDisplayed = false;
 
-// Button color classes mapping
 const buttonColors = {
   "clear": { light: "bg-red-500 hover:bg-red-600", dark: "bg-red-600 hover:bg-red-700" },
   "delete": { light: "bg-yellow-500 hover:bg-yellow-600", dark: "bg-yellow-600 hover:bg-yellow-700" },
@@ -14,12 +13,10 @@ const buttonColors = {
   "number": { light: "bg-gray-300 hover:bg-gray-400 text-gray-900", dark: "bg-gray-700 hover:bg-gray-600 text-white" }
 };
 
-// Dark Mode Toggle
 themeToggle.addEventListener("click", () => {
   const isDark = document.documentElement.classList.toggle("dark");
   themeToggle.innerText = isDark ? "☀ Light Mode" : "🌙 Dark Mode";
 
-  // Update button colors dynamically
   buttons.forEach(btn => {
     btn.classList.remove(
       "bg-red-500", "bg-red-600",
@@ -44,12 +41,10 @@ themeToggle.addEventListener("click", () => {
   });
 });
 
-// Button click functionality
 buttons.forEach(btn => {
   btn.addEventListener("click", () => handleInput(btn.dataset.action));
 });
 
-// Main function to handle calculator input
 function handleInput(action) {
   if (action === "clear") {
     currentInput = "";
@@ -84,7 +79,6 @@ function handleInput(action) {
   }
 }
 
-// Keyboard support
 document.addEventListener("keydown", (e) => {
   if (e.key >= "0" && e.key <= "9") handleInput(e.key);
   else if (e.key === ".") handleInput(".");
