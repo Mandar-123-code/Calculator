@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Calculator - User Guide</title>
+  <link rel="icon" href="calculator.png" type="image/png" sizes="32x32">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: "class" };
+  </script>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 min-h-screen flex flex-col items-center p-6 transition">
+
+  <!-- Header -->
+  <header class="w-full max-w-3xl mb-6 text-center">
+    <h1 class="text-4xl sm:text-5xl font-extrabold text-indigo-700 dark:text-indigo-300 mb-2">
+      Smart Calculator User Guide
+    </h1>
+    <p class="text-gray-700 dark:text-gray-300 text-lg sm:text-xl">
+      Learn how to use all features of your calculator effectively
+    </p>
+  </header>
+
+  <!-- Main Guide Container -->
+  <div class="bg-white dark:bg-gray-800 p-6 sm:p-10 rounded-3xl shadow-2xl max-w-3xl w-full text-gray-900 dark:text-gray-100 space-y-6">
+
+    <!-- Section 1: Numbers -->
+    <section>
+      <h2 class="text-2xl font-bold mb-2 text-indigo-600 dark:text-indigo-400">1️⃣ Enter Numbers</h2>
+      <p class="mb-2">
+        Click on any number button (0-9) or use your keyboard number keys to enter numbers. You can enter multi-digit numbers and decimals seamlessly.
+      </p>
+      <div class="flex gap-2 flex-wrap">
+        <span class="px-3 py-1 bg-gray-300 dark:bg-gray-700 rounded-full font-semibold text-gray-900 dark:text-white shadow-sm">0</span>
+        <span class="px-3 py-1 bg-gray-300 dark:bg-gray-700 rounded-full font-semibold text-gray-900 dark:text-white shadow-sm">1</span>
+        <span class="px-3 py-1 bg-gray-300 dark:bg-gray-700 rounded-full font-semibold text-gray-900 dark:text-white shadow-sm">2</span>
+        <span class="px-3 py-1 bg-gray-300 dark:bg-gray-700 rounded-full font-semibold text-gray-900 dark:text-white shadow-sm">3</span>
+        <span class="px-3 py-1 bg-gray-300 dark:bg-gray-700 rounded-full font-semibold text-gray-900 dark:text-white shadow-sm">4</span>
+        <span class="px-3 py-1 bg-gray-300 dark:bg-gray-700 rounded-full font-semibold text-gray-900 dark:text-white shadow-sm">5</span>
+        <span class="px-3 py-1 bg-gray-300 dark:bg-gray-700 rounded-full font-semibold text-gray-900 dark:text-white shadow-sm">6</span>
+        <span class="px-3 py-1 bg-gray-300 dark:bg-gray-700 rounded-full font-semibold text-gray-900 dark:text-white shadow-sm">7</span>
+        <span class="px-3 py-1 bg-gray-300 dark:bg-gray-700 rounded-full font-semibold text-gray-900 dark:text-white shadow-sm">8</span>
+        <span class="px-3 py-1 bg-gray-300 dark:bg-gray-700 rounded-full font-semibold text-gray-900 dark:text-white shadow-sm">9</span>
+        <span class="px-3 py-1 bg-gray-300 dark:bg-gray-700 rounded-full font-semibold text-gray-900 dark:text-white shadow-sm">.</span>
+      </div>
+    </section>
+
+    <!-- Section 2: Operators -->
+    <section>
+      <h2 class="text-2xl font-bold mb-2 text-indigo-600 dark:text-indigo-400">2️⃣ Operators</h2>
+      <p class="mb-2">
+        Use the following operators for calculations. You can click buttons or use the keyboard:
+      </p>
+      <ul class="list-disc pl-6 space-y-1">
+        <li><strong>+</strong> : Addition</li>
+        <li><strong>-</strong> : Subtraction</li>
+        <li><strong>×</strong> : Multiplication</li>
+        <li><strong>÷</strong> : Division</li>
+        <li><strong>%</strong> : Percentage</li>
+        <li><strong>^</strong> : Power (Exponent)</li>
+      </ul>
+    </section>
+
+    <!-- Section 3: Special Buttons -->
+    <section>
+      <h2 class="text-2xl font-bold mb-2 text-indigo-600 dark:text-indigo-400">3️⃣ Special Buttons</h2>
+      <p class="mb-2">
+        These buttons help manage your input and calculation:
+      </p>
+      <ul class="list-disc pl-6 space-y-1">
+        <li><strong>AC</strong> : Clears the entire input.</li>
+        <li><strong>DEL</strong> : Deletes the last entered character.</li>
+        <li><strong>=</strong> : Calculates the result.</li>
+      </ul>
+    </section>
+
+    <!-- Section 4: Keyboard Shortcuts -->
+    <section>
+      <h2 class="text-2xl font-bold mb-2 text-indigo-600 dark:text-indigo-400">4️⃣ Keyboard Shortcuts</h2>
+      <p class="mb-2">You can use your keyboard to control the calculator:</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+        <span class="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-sm text-gray-800 dark:text-white font-semibold">0-9</span>
+        <span class="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-sm text-gray-800 dark:text-white font-semibold">+</span>
+        <span class="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-sm text-gray-800 dark:text-white font-semibold">-</span>
+        <span class="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-sm text-gray-800 dark:text-white font-semibold">*</span>
+        <span class="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-sm text-gray-800 dark:text-white font-semibold">/</span>
+        <span class="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-sm text-gray-800 dark:text-white font-semibold">Enter (=)</span>
+        <span class="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-sm text-gray-800 dark:text-white font-semibold">Backspace (DEL)</span>
+        <span class="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-sm text-gray-800 dark:text-white font-semibold">Escape (AC)</span>
+      </div>
+    </section>
+
+    <!-- Section 5: Dark Mode -->
+    <section>
+      <h2 class="text-2xl font-bold mb-2 text-indigo-600 dark:text-indigo-400">5️⃣ Dark Mode</h2>
+      <p class="mb-2">
+        Use the <span class="font-bold">🌙 / ☀</span> button at the top right to toggle between light and dark themes for a comfortable viewing experience.
+      </p>
+    </section>
+
+    <!-- Back Link -->
+    <div class="mt-6 text-center">
+      <a href="index.html" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold text-lg">
+        ← Back to Calculator
+      </a>
+    </div>
+
+  </div>
+
+</body>
+</html>
