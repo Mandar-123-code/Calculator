@@ -5,6 +5,16 @@ const themeToggle = document.getElementById("theme-toggle");
 let currentInput = "";
 let resultDisplayed = false;
 
+const savedTheme = localStorage.getItem("theme");
+
+if (savedTheme === "dark") {
+  document.documentElement.classList.add("dark");
+  themeToggle.innerText = "☀ Light Mode";
+} else {
+  document.documentElement.classList.remove("dark");
+  themeToggle.innerText = "🌙 Dark Mode";
+}
+
 const buttonColors = {
   "clear": { light: "bg-red-500 hover:bg-red-600", dark: "bg-red-600 hover:bg-red-700" },
   "delete": { light: "bg-yellow-500 hover:bg-yellow-600", dark: "bg-yellow-600 hover:bg-yellow-700" },
@@ -15,6 +25,7 @@ const buttonColors = {
 
 themeToggle.addEventListener("click", () => {
   const isDark = document.documentElement.classList.toggle("dark");
+  localStorage.setItem("theme", isDark ? "dark" : "light");
   themeToggle.innerText = isDark ? "☀ Light Mode" : "🌙 Dark Mode";
 
   buttons.forEach(btn => {
@@ -45,7 +56,36 @@ buttons.forEach(btn => {
   btn.addEventListener("click", () => handleInput(btn.dataset.action));
 });
 
+
+
+function executeEquals() {
+  try {
+    currentInput = eval(
+      currentInput
+        .replace(/×/g, "*")
+        .replace(/÷/g, "/")
+        .replace(/\^/g, "**")
+    );
+    display.innerText = currentInput;
+    resultDisplayed = true;
+  } catch {
+    display.innerText = "Error";
+    currentInput = "";
+    resultDisplayed = false;
+  }
+}
+
+
+
 function handleInput(action) {
+
+
+  if (action === "=") {
+    executeEquals();
+    return;
+  }
+
+
   if (action === "clear") {
     currentInput = "";
     display.innerText = "0";
@@ -55,7 +95,9 @@ function handleInput(action) {
       currentInput = currentInput.slice(0, -1);
       display.innerText = currentInput || "0";
     }
-  } else if (action === "=") {
+  } 
+
+  else if (action === "=") {
     try {
       currentInput = eval(currentInput.replace(/×/g, "*").replace(/÷/g, "/").replace(/\^/g, "**"));
       display.innerText = currentInput;
@@ -64,7 +106,9 @@ function handleInput(action) {
       display.innerText = "Error";
       currentInput = "";
     }
-  } else {
+  }
+
+  else {
     if (resultDisplayed) {
       if (!isNaN(action) || action === ".") {
         currentInput = action;
@@ -80,9 +124,18 @@ function handleInput(action) {
 }
 
 document.addEventListener("keydown", (e) => {
+
+  
+  if (e.key === "Enter") {
+    e.preventDefault();
+    executeEquals();
+    return;
+  }
+ 
+
   if (e.key >= "0" && e.key <= "9") handleInput(e.key);
   else if (e.key === ".") handleInput(".");
-  else if (e.key === "Enter") handleInput("=");
+  else if (e.key === "Enter") handleInput("="); 
   else if (e.key === "Backspace") handleInput("delete");
   else if (e.key === "Escape") handleInput("clear");
   else if (["+", "-", "*", "/", "%", "^"].includes(e.key)) handleInput(e.key);
