@@ -1,9 +1,13 @@
+
 const display = document.getElementById("display");
 const buttons = document.querySelectorAll(".btn");
 const themeToggle = document.getElementById("theme-toggle");
 
 let currentInput = "";
 let resultDisplayed = false;
+
+
+
 
 const savedTheme = localStorage.getItem("theme");
 
@@ -15,60 +19,51 @@ if (savedTheme === "dark") {
   themeToggle.innerText = "🌙 Dark Mode";
 }
 
-const buttonColors = {
-  "clear": { light: "bg-red-500 hover:bg-red-600", dark: "bg-red-600 hover:bg-red-700" },
-  "delete": { light: "bg-yellow-500 hover:bg-yellow-600", dark: "bg-yellow-600 hover:bg-yellow-700" },
-  "operator": { light: "bg-orange-500 hover:bg-orange-600", dark: "bg-orange-600 hover:bg-orange-700" },
-  "equal": { light: "bg-green-500 hover:bg-green-600", dark: "bg-green-600 hover:bg-green-700" },
-  "number": { light: "bg-gray-300 hover:bg-gray-400 text-gray-900", dark: "bg-gray-700 hover:bg-gray-600 text-white" }
+
+
+
+themeToggle.onclick = function () {
+  if (document.documentElement.classList.contains("dark")) {
+    document.documentElement.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+    themeToggle.innerText = "🌙 Dark Mode";
+  } else {
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+    themeToggle.innerText = "☀ Light Mode";
+  }
 };
 
-themeToggle.addEventListener("click", () => {
-  const isDark = document.documentElement.classList.toggle("dark");
-  localStorage.setItem("theme", isDark ? "dark" : "light");
-  themeToggle.innerText = isDark ? "☀ Light Mode" : "🌙 Dark Mode";
 
-  buttons.forEach(btn => {
-    btn.classList.remove(
-      "bg-red-500", "bg-red-600",
-      "bg-yellow-500", "bg-yellow-600",
-      "bg-orange-500", "bg-orange-600",
-      "bg-green-500", "bg-green-600",
-      "bg-gray-300", "bg-gray-700",
-      "hover:bg-red-600", "hover:bg-red-700",
-      "hover:bg-yellow-600", "hover:bg-yellow-700",
-      "hover:bg-orange-600", "hover:bg-orange-700",
-      "hover:bg-green-600", "hover:bg-green-700",
-      "hover:bg-gray-400", "hover:bg-gray-600",
-      "text-gray-900", "text-white"
-    );
 
-    const action = btn.dataset.action;
-    if (action === "clear") btn.classList.add(...buttonColors.clear[isDark ? "dark" : "light"].split(" "));
-    else if (action === "delete") btn.classList.add(...buttonColors.delete[isDark ? "dark" : "light"].split(" "));
-    else if (action === "=") btn.classList.add(...buttonColors.equal[isDark ? "dark" : "light"].split(" "));
-    else if (["+", "-", "*", "/", "%", "^"].includes(action)) btn.classList.add(...buttonColors.operator[isDark ? "dark" : "light"].split(" "));
-    else btn.classList.add(...buttonColors.number[isDark ? "dark" : "light"].split(" "));
-  });
-});
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].onclick = function () {
 
-buttons.forEach(btn => {
-  btn.addEventListener("click", () => handleInput(btn.dataset.action));
-});
+    let action = buttons[i].innerText;
+56
+
+    if (action === "÷") action = "/";
+    if (action === "×") action = "*";
+    if (action === "xʸ") action = "^";
+
+    handleInput(action);
+
+   
+    buttons[i].blur();
+  };
+}
+
 
 
 
 function executeEquals() {
   try {
-    currentInput = eval(
-      currentInput
-        .replace(/×/g, "*")
-        .replace(/÷/g, "/")
-        .replace(/\^/g, "**")
-    );
+    let expression = currentInput.replace("^", "**");
+    let evalResult = eval(expression); 
+    currentInput = evalResult.toString(); 
     display.innerText = currentInput;
-    resultDisplayed = true;
-  } catch {
+    resultDisplayed = true; 
+  } catch (e) {
     display.innerText = "Error";
     currentInput = "";
     resultDisplayed = false;
@@ -77,66 +72,97 @@ function executeEquals() {
 
 
 
-function handleInput(action) {
 
+function handleInput(action) {
 
   if (action === "=") {
     executeEquals();
     return;
   }
 
-
-  if (action === "clear") {
+ 
+  if (action === "AC") {
     currentInput = "";
     display.innerText = "0";
     resultDisplayed = false;
-  } else if (action === "delete") {
-    if (!resultDisplayed) {
-      currentInput = currentInput.slice(0, -1);
-      display.innerText = currentInput || "0";
-    }
-  } 
-
-  else if (action === "=") {
-    try {
-      currentInput = eval(currentInput.replace(/×/g, "*").replace(/÷/g, "/").replace(/\^/g, "**"));
-      display.innerText = currentInput;
-      resultDisplayed = true;
-    } catch {
-      display.innerText = "Error";
-      currentInput = "";
-    }
+    return;
   }
 
-  else {
-    if (resultDisplayed) {
-      if (!isNaN(action) || action === ".") {
-        currentInput = action;
-      } else {
-        currentInput += action;
-      }
+ 
+  if (action === "DEL") {
+    if (resultDisplayed === false) {
+      currentInput = currentInput.slice(0, currentInput.length - 1);
+      display.innerText = currentInput === "" ? "0" : currentInput;
+    }
+    return;
+  }
+
+
+  if (
+    action === "0" || action === "1" || action === "2" ||
+    action === "3" || action === "4" || action === "5" ||
+    action === "6" || action === "7" || action === "8" ||
+    action === "9"
+  ) {
+    if (resultDisplayed === true) {
+      currentInput = action;
       resultDisplayed = false;
     } else {
-      currentInput += action;
+      currentInput = currentInput + action;
     }
+    display.innerText = currentInput;
+    return;
+  }
+
+
+  if (action === ".") {
+    if (resultDisplayed === true) {
+      currentInput = ".";
+      resultDisplayed = false;
+    } else {
+      currentInput = currentInput + ".";
+    }
+    display.innerText = currentInput;
+    return;
+  }
+
+ 
+  if (
+    action === "+" || action === "-" ||
+    action === "*" || action === "/" ||
+    action === "%" || action === "^"
+  ) {
+    resultDisplayed = false;
+    currentInput = currentInput + action;
     display.innerText = currentInput;
   }
 }
 
-document.addEventListener("keydown", (e) => {
 
-  
-  if (e.key === "Enter") {
-    e.preventDefault();
-    executeEquals();
-    return;
-  }
- 
 
-  if (e.key >= "0" && e.key <= "9") handleInput(e.key);
-  else if (e.key === ".") handleInput(".");
-  else if (e.key === "Enter") handleInput("="); 
-  else if (e.key === "Backspace") handleInput("delete");
-  else if (e.key === "Escape") handleInput("clear");
-  else if (["+", "-", "*", "/", "%", "^"].includes(e.key)) handleInput(e.key);
-});
+
+document.onkeydown = function (e) {
+
+  if (e.key === "Enter") executeEquals();
+  if (e.key === "Backspace") handleInput("DEL");
+  if (e.key === "Escape") handleInput("AC");
+
+  if (e.key === "0") handleInput("0");
+  if (e.key === "1") handleInput("1");
+  if (e.key === "2") handleInput("2");
+  if (e.key === "3") handleInput("3");
+  if (e.key === "4") handleInput("4");
+  if (e.key === "5") handleInput("5");
+  if (e.key === "6") handleInput("6");
+  if (e.key === "7") handleInput("7");
+  if (e.key === "8") handleInput("8");
+  if (e.key === "9") handleInput("9");
+
+  if (e.key === ".") handleInput(".");
+  if (e.key === "+") handleInput("+");
+  if (e.key === "-") handleInput("-");
+  if (e.key === "*") handleInput("*");
+  if (e.key === "/") handleInput("/");
+  if (e.key === "%") handleInput("%");
+  if (e.key === "^") handleInput("^");
+};
